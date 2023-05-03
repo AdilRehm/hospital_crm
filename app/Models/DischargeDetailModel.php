@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DischargeDetailModel extends Model
@@ -24,8 +25,9 @@ class DischargeDetailModel extends Model
         'prescription_follow_up_instructions',
         'prescription_second_other'
     ];
-    public function dischargedetail(): HasOne
+
+    public function drugs(): HasMany
     {
-        return $this->hasOne(DischargeMedicinemodel::class);
+        return $this->HasMany(DischargeMedicinemodel::class, 'discharge_detail_id');
     }
 }

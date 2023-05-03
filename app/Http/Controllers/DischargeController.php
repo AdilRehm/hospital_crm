@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DischargeModel;
 use App\Models\PatientModal;
-use Hamcrest\Core\HasToString;
 use Illuminate\Http\Request;
+use App\Models\DischargeModel;
+use Hamcrest\Core\HasToString;
+use App\Models\DischargeDetailModel;
 
 class DischargeController extends Controller
 {
@@ -49,11 +50,9 @@ class DischargeController extends Controller
 
     public function index()
     {
-
-        $latestloadeddata = DischargeModel::latest('created_at')->value('created_at');
-
-        $newdata = DischargeModel::where('created_at', '>=', $latestloadeddata)->get();
-        //dd($newdata);
+        $latestloadeddata = DischargeDetailModel::latest('created_at')->value('created_at');
+        $newdata = DischargeDetailModel::with('drugs')->whereId(3)->first();
+        // return $newdata->drugs;
         return view('/dischargeslip', compact('newdata'));
     }
 

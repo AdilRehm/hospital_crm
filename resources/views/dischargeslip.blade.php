@@ -6,48 +6,48 @@
        <div class="row">
             <h4 class="col-12 d-flex justify-content-center">Discharge Summery</h4>
             <hr class="w-100">
-            @foreach ($newdata as $dischargedata)
+            {{-- @foreach ($newdata as $newdata) --}}
             <div class="col-4 d-flex flex-column">
-                <label for="">Name: <span>{{$dischargedata->discharge_patient_name}}</span></label>
-                <label for="">MR# <span>{{$dischargedata->id}}</span></label>
-                <label for="">Condition on Discharge: <span>{{$dischargedata->prescription_other}}</span></label>
+                <label for="">Name: <span>{{$newdata->discharge_patient_name}}</span></label>
+                <label for="">MR# <span>{{$newdata->id}}</span></label>
+                <label for="">Condition on Discharge: <span>{{$newdata->prescription_other}}</span></label>
             </div>
             <div class="col-4 d-flex flex-column">
-                <label for="">Age/Gender: <span>{{$dischargedata->discharge_patient_name}}</span></label>
-                <label for="">Date of Admission: <span>{{$dischargedata->discharge_admission_date}}</span></label>
-                <label for="">SSP: <span>{{$dischargedata->discharge_patient_name}}</span></label>
+                <label for="">Age/Gender: <span>{{$newdata->discharge_patient_name}}</span></label>
+                <label for="">Date of Admission: <span>{{$newdata->discharge_admission_date}}</span></label>
+                <label for="">SSP: <span>{{$newdata->discharge_patient_name}}</span></label>
             </div>
             <div class="col-4 d-flex flex-column">
-                <label for="">Date: <span>{{$dischargedata->created_at}}</span></label>
-                <label for="">Date of Discharge: <span>{{$dischargedata->discharge_discharge_date}}</span></label>
+                <label for="">Date: <span>{{$newdata->created_at}}</span></label>
+                <label for="">Date of Discharge: <span>{{$newdata->discharge_discharge_date}}</span></label>
             </div>
             <hr class="w-100">
             <label class="col-12" for="">Presription</label>
             <div class="col-12 d-flex flex-column">
                 <strong for="">Co-Morbidity</strong>
                 <label for="">
-                    @foreach (json_decode($dischargedata->prescription_corbidity) as $corbidity)
+                    @foreach (json_decode($newdata->prescription_corbidity) as $corbidity)
                         {{ $corbidity }}<br>
                     @endforeach
                 </label>
                 <strong for="">Final Diagnose</strong>
-                <label for="">{{$dischargedata->prescription_final_diagnosis}}</label>
+                <label for="">{{$newdata->prescription_final_diagnosis}}</label>
                 <strong for="">Presenting Complaint</strong>
-                <label for="">{{$dischargedata->prescription_presenting_complaint}}</label>
+                <label for="">{{$newdata->prescription_presenting_complaint}}</label>
                 <strong for="">Brief Notes of Hospital Stay</strong>
-                <label for="">{{$dischargedata->prescription_notes_of_hospital_stay}}</label>
+                <label for="">{{$newdata->prescription_notes_of_hospital_stay}}</label>
                 <strong for="">Significant Labs</strong>
-                <label for="">{{$dischargedata->prescription_significant_labs}}</label>
+                <label for="">{{$newdata->prescription_significant_labs}}</label>
                 <strong for="">Follow Up Instructions</strong>
                 <label for="">
                     @php
-                        foreach (json_decode($dischargedata->prescription_follow_up_instructions) as $value) {
+                        foreach (json_decode($newdata->prescription_follow_up_instructions) as $value) {
                             echo getFOllowUps($value)."<br>";
                         }
                     @endphp
                 </label>
                 <strong for="">Doctor Name</strong>
-                <label for="">{{$dischargedata->prescription_second_other}}</label>
+                <label for="">{{$newdata->prescription_second_other}}</label>
             </div>
             <h4 class="col-12 mt-4">Medication</h4>
             <div class="col-12 mt-2">
@@ -64,55 +64,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>
-                                @php
-                                    foreach (json_decode($dischargedata->medication_name) as $medname) {
-                                        echo ($medname)."<br>";
-                                    }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                    foreach (json_decode($dischargedata->medication_dosage) as $meddosage) {
-                                        echo ($meddosage)."<br>";
-                                    }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                    foreach (json_decode($dischargedata->medication_frequency) as $medfeq) {
-                                        echo ($medfeq)."<br>";
-                                    }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                foreach (json_decode($dischargedata->medication_instruction) as $medinst) {
-                                    echo ($medinst)."<br>";
-                                }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                foreach (json_decode($dischargedata->medication_duration_number) as $meddurnum) {
-                                    echo ($meddurnum)."<br>";
-                                }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                foreach (json_decode($dischargedata->medication_route) as $medroute) {
-                                    echo ($medroute)."<br>";
-                                }
-                                @endphp
-                            </td>
-                        </tr>
+                        @foreach ($newdata->drugs as $x => $item)
+                            <tr>
+                                <td>{{ $x+1 }}.</td>
+                                <td>{{ $item->medication_name }}</td>
+                                <td>{{ $item->medication_duration_number }}</td>
+                                <td>{{ $item->medication_dosage }}</td>
+                                <td>{{ $item->medication_route }}</td>
+                                <td>{{ $item->medication_frequency }}</td>
+                                <td>{{ $item->medication_instruction }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            @endforeach
+            {{-- @endforeach --}}
             <div class="col-12 d-flex flex-row no-print">
             <button class="btn btn-danger w-25" onclick="printArea()">Print the Discharge Survey</button>
             <button class="btn btn-primary w-25 ms-2" onclick="closepoup()">Close Survey</button>
