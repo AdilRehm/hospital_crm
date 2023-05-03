@@ -193,13 +193,13 @@ $(document).ready(function() {
     // alert('idrees');
     var html =  `<div class="row d-flex d-inline-flex" id="interface-container_`+row_id+`">`;
       html+=`<div class="col-md-3 mt-2 p-0">
-        <label for="medication_name" class="form-label m-0 strong fs-6">Name</label><input type="text" class="form-control shadow" autocomplete="off" id="medication_name" name="medication_name" />
+        <label for="medication_name" class="form-label m-0 strong fs-6">Name</label><input type="text" class="form-control shadow" autocomplete="off" id="medication_name" name="medication_name[]" />
         <div id="medicinesug"></div>
-        <div class="d-flex"><input type="text" class="form-control shadow" id="medication_name" name="medicationname" disabled /><input type="text" class="form-control shadow" id="medication_name" name="medicationname" disabled /></div>
+        <div class="d-flex"><input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled /><input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled /></div>
     </div>
     <div class="col-md-1 mt-2 p-0">
-        <label for="medication_duration" class="form-label m-0 strong fs-6">Duration</label><input type="text" class="form-control shadow" id="medication_duration" name="medication_duration_sequence" />
-        <select class="form-select" name="medication_duration_number">
+        <label for="medication_duration" class="form-label m-0 strong fs-6">Duration</label><input type="text" class="form-control shadow" id="medication_duration" name="medication_duration_sequence[]" />
+        <select class="form-select" name="medication_duration_number[]">
             <option value="">Select</option>
             <option value="days">Day(s)</option>
             <option value="weeks">Week(s)</option>
@@ -211,8 +211,8 @@ $(document).ready(function() {
         </select>
     </div>
     <div class="col-md-1 mt-2 p-0">
-        <label for="medication_dosage" class="form-label m-0 strong fs-6">Dosage</label><input type="text" class="form-control shadow" id="medication_dosage" name="medication_dosage_input" />
-        <select class="form-select" name="medication_dosage_select">
+        <label for="medication_dosage" class="form-label m-0 strong fs-6">Dosage</label><input type="text" class="form-control shadow" id="medication_dosage" name="medication_dosage_input[]" />
+        <select class="form-select" name="medication_dosage_select[]">
             <option value="">Select</option>
             <option value="capsules">Capsule(s)</option>
             <option value="tablet">Tablet(s)</option>
@@ -233,7 +233,7 @@ $(document).ready(function() {
     </div>
     <div class="col-md-2 mt-2 p-0">
         <label for="route_" class="form-label m-0 strong fs-6">Route</label>
-        <select class="form-select" name="medication_route" id="route_">
+        <select class="form-select" name="medication_route[]" id="route_">
             <option value="">Select Intake</option>
             <option value="oral">Oral</option>
             <option value="nasal">Nasal</option>
@@ -319,7 +319,7 @@ $(document).ready(function() {
             <option value="Intrathecal">Once injection now, one after a month, next after 6 months</option>
         </select>
     </div>
-    <div class="col-md-2 mt-2 p-0"><label for="medication_instruction" class="form-label m-0 strong fs-6">Instruction</label><input type="text" class="form-control shadow" id="medication_instruction" name="medication_instruction" /></div>
+    <div class="col-md-2 mt-2 p-0"><label for="medication_instruction" class="form-label m-0 strong fs-6">Instruction</label><input type="text" class="form-control shadow" id="medication_instruction" name="medication_instruction[]" /></div>
     <div class="col-md-1 mt-2 p-0 d-flex align-items-center">
         <button type="button" class="btn btn-default delete-button btnremove" id="deletebutton" onclick="Remove(`+row_id+`)" name="medication_del"><i class="bi bi-trash3 fs-5"></i></button>
     </div>`;

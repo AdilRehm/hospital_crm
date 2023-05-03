@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DischargeDetailModel extends Model
 {
-    protected $table='discharge_detail';
-    protected $fillable=[
+    protected $table = 'discharge_detail';
+    protected $fillable = [
         'id',
         'discharge_patient_name',
         'discharge_admission_date',

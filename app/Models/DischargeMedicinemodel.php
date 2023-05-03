@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DischargeMedicinemodel extends Model
 {
-    protected $table='discharge_detail';
-    protected $fillable=[
-        'id',
-        'discharge_detail_id', 
+    protected $table = 'discharge_medication';
+    protected $fillable = [
+        'discharge_detail_id',
         'discharge_patient_name',
         'medication_name',
         'medication_duration',
