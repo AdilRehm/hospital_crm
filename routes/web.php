@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Route;
@@ -33,9 +34,7 @@ Route::group(['middleware'=>'auth'],function(){
     });
 });
 
-Route::get('/',function(){
-return view('auth.login');
-})->name('login');
+
 
 //Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 //Route::post('/login', [LoginController::class, 'login']);
@@ -82,10 +81,12 @@ Route::get('/discharge', function () {
 });
 
 // userrole all routes////////////////
-Route::get('/userrole', function () {
-    return view('userrole');
-});
-Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
+// Route::get('/userrole', function () {
+//     return view('userrole');
+// });
+
+
+//Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
 
 Route::get('/dischargeslip', function () {
     return view('dischargeslip');
@@ -93,3 +94,10 @@ Route::get('/dischargeslip', function () {
 Route::get('dischargeslip',[DischargeController::class, 'index']);
 
 Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);
+
+Route::get('/',function(){
+    return view('auth.login');
+    })->name('login');
+    Route::post('login',[AuthController::class,'login'])->name('login');
+    Route::get('userrole',[AuthController::class, 'register'])->name('userrole');
+    Route::post('/register',[AuthController::class, 'register_new_user']);

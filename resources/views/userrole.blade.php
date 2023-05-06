@@ -34,8 +34,9 @@
                             <div class="col-md-12">
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body row border">
-                                        <form method="POST" action="{{ route('userrole.store') }}">
+                                        <form method="POST" action="/register">
                                             @csrf
+                                            
                                             <div class="row g-3 align-items-center">
                                                 <div class="col-2">
                                                     <label for="doctorname" class="col-form-label"><strong>Name:</strong></label>
@@ -72,7 +73,7 @@
                                                     <input type="text" id="doctorpassword" class="form-control me-2" name="password" aria-describedby="doctorpasswordhekp" placeholder="Password">
                                                 </div>
                                                 <div class="col-12 mt-4">
-                                                    <button type="submit" class="btn btn-primary" required="required" name="addpatient">Save User</button>
+                                                    <button type="submit" class="btn btn-primary" required="required" name="adduser" value="Save User">Save User</button>
                                                 </div>
                                             </div>
                                         </form>

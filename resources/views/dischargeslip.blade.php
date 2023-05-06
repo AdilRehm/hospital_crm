@@ -26,9 +26,11 @@
             <div class="col-12 d-flex flex-column">
                 <strong for="">Co-Morbidity</strong>
                 <label for="">
+                    @if (!is_null($newdata->prescription_corbidity))
                     @foreach (json_decode($newdata->prescription_corbidity) as $corbidity)
                         {{ $corbidity }}<br>
                     @endforeach
+                    @endif
                 </label>
                 <strong for="">Final Diagnose</strong>
                 <label for="">{{$newdata->prescription_final_diagnosis}}</label>
@@ -41,13 +43,17 @@
                 <strong for="">Follow Up Instructions</strong>
                 <label for="">
                     @php
+                    if (!is_null($newdata->prescription_follow_up_instructions)){
                         foreach (json_decode($newdata->prescription_follow_up_instructions) as $value) {
                             echo getFOllowUps($value)."<br>";
                         }
+                    }
                     @endphp
                 </label>
                 <strong for="">Doctor Name</strong>
+                @if (!is_null($newdata->prescription_second_other))
                 <label for="">{{$newdata->prescription_second_other}}</label>
+                @endif
             </div>
             <h4 class="col-12 mt-4">Medication</h4>
             <div class="col-12 mt-2">
