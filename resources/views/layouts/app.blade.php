@@ -56,16 +56,16 @@
                             <a class="nav-link fs-5 text-white" href="/discharge">Discharge</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-5 text-white" href="/userrole">User Role</a>
+                            <a class="nav-link fs-5 text-white" href="/register">User Role</a>
                         </li>
                     </ul>
                 </div>
                 <div class="dropdown float-end">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
+                        Actions
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
