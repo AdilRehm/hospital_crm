@@ -93,3 +93,7 @@ Route::get('/dischargeslip', function () {
 Route::get('dischargeslip',[DischargeController::class, 'index']);
 
 Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
