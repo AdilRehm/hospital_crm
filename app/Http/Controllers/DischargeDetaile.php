@@ -50,9 +50,9 @@ class DischargeDetaile extends Controller
         }
 
         
-        $newdata = DischargeModel::where('')->get();
-        return view('/dischargeslip', compact('newdata'));
-        return view('/discharge');
+        // $newdata = DischargeModel::where('')->get();
+        // return view('/dischargeslip', compact('newdata'));
+         return view('/discharge');
     }
 
     /**

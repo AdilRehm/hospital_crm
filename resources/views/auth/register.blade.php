@@ -1,6 +1,8 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+
 {{-- @extends('layouts.header') --}}
-@extends('bodycontent')
+{{-- @extends('bodycontent') --}}
 @section('content')
 <div class="container">
     <div class="justify-content-center">
