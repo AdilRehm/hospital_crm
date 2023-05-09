@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+@extends('layouts.header')
 @section('title', 'Dashboard')
 @section('content')
     <div class="container">
@@ -22,15 +24,21 @@
             <div class="col-md-3">
                 <div class="card ps-2">
                     <div class="card-title pt-3">
-                        <h5>Total Appointments</h5>
+                        <h5>Total Number of Medicine</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h3 class="m-0">0</h3>
+                                <h3 class="m-0 text-danger">
+                                    @php
+                                        echo $totalmedicine;
+                                    @endphp
+                                </h3>
+                             
+                                
                             </div>
                             <div class="col-md-4 text-center">
-                                <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z"/></svg>
+                                <i class="bi bi-capsule fs-1 text-primary"></i>
                             </div>
                         </div>
                     </div>
@@ -44,10 +52,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h3 class="m-0">0</h3>
+                                <h3 class="m-0 text-danger">
+                                    @php 
+                                         echo $totalUsers;
+                                    @endphp
+                                </h3>
                             </div>
                             <div class="col-md-4 text-center">
-                                <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z"/></svg>
+                                <i class="bi bi-person-add fs-1 text-primary"></i>
                             </div>
                         </div>
                     </div>
@@ -61,10 +73,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h3 class="m-0">0</h3>
+                                <h3 class="m-0 text-danger">
+                                    @php 
+                                        echo $totaldischarge;
+                                    @endphp
+                                </h3>
                             </div>
                             <div class="col-md-4 text-center">
-                                <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z"/></svg>
+                                <i class="bi bi-file-plus fs-1 text-primary"></i>
                             </div>
                         </div>
                     </div>
@@ -73,15 +89,19 @@
             <div class="col-md-3">
                 <div class="card ps-2">
                     <div class="card-title pt-3">
-                        <h5>Total Discharge</h5>
+                        <h5>Total Number of Users</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h3 class="m-0">0</h3>
+                                <h3 class="m-0 text-danger">
+                                    @php 
+                                        echo $totaluser;
+                                    @endphp
+                                </h3>
                             </div>
                             <div class="col-md-4 text-center">
-                                <svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z"/></svg>
+                                <i class="bi bi-people fs-1 text-primary"></i>
                             </div>
                         </div>
                     </div>

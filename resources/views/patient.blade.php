@@ -1,9 +1,11 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+@extends('layouts.header')
 @section('title', isset($patient) ? 'Update Patient' : 'Add new Patient')
 
 @section('content')
     <div class="container">
-        <form class="" method="POST" action="{{isset($patient) ? route('patient.update') : route('patient.store') }}">
+        <form class="" method="POST" action="{{ isset($patient) ? route('patient.update') : route('patient.store') }}">
             @csrf
             <div class="row d-flex align-content-center">
                 <h4 class="col-12 pb-2 text-center">Add Patient</h4>
@@ -15,19 +17,19 @@
                             <label for="mrnum" class="col-form-label">Mr#</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="mrnum" class="form-control" name="id" value="{{isset($patient)? $patient->id : ''}}" aria-describedby="itemnamehelpname" disabled>
+                            <input type="text" id="mrnum" class="form-control" name="id" value="{{isset($patient) ? $patient->id : ''}}" aria-describedby="itemnamehelpname" disabled>
                         </div>
                         <div class="col-3">
                             <label for="name" class="col-form-label">Name*</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="name" class="form-control" name="patient_name" value="{{isset($patient)? $patient->patient_name : ''}}" aria-describedby="salthelpname" placeholder="Kindly enter Patient">
+                            <input type="text" id="name" class="form-control" name="patient_name" value="{{isset($patient) ? $patient->patient_name : ''}}" aria-describedby="salthelpname" placeholder="Kindly enter Patient">
                         </div>
                         <div class="col-3">
                             <label for="fhname" class="col-form-label">Father/ Husband Name:</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="fhname" class="form-control" name="fh_name" value="{{isset($patient)? $patient->fh_name : ''}}" aria-describedby="salthelpname" placeholder="Father/ Husband name">
+                            <input type="text" id="fhname" class="form-control" name="fh_name" value="{{isset($patient) ? $patient->fh_name : ''}}" aria-describedby="salthelpname" placeholder="Father/ Husband name">
                         </div>
                         <div class="col-3">
                             <label for="phone" class="col-form-label">Phone#</label>
@@ -35,14 +37,14 @@
                         <div class="col-9">
                             <div class="input-group">
                                 <div class="input-group-text" id="btnGroupAddon">+92</div>
-                                <input type="text" id="phone" class="form-control" name="patient_number" value="{{isset($patient)? $patient->patient_number : ''}}" aria-describedby="btnGroupAddon" placeholder="Phone Number">
+                                <input type="text" id="phone" class="form-control" name="patient_number" value="{{isset($patient) ? $patient->patient_number : ''}}" aria-describedby="btnGroupAddon" placeholder="Phone Number">
                             </div>
                         </div>
                         <div class="col-3">
                             <label for="cnic" class="col-form-label">CNIC:</label>
                         </div>
                         <div class="col-9">
-                            <input type="number" id="cnic" class="form-control" name="patient_cnic" value="{{isset($patient)? $patient->patient_cnic:''}}" aria-describedby="cnichelpname" placeholder="Enter CNIC Number">
+                            <input type="number" id="cnic" class="form-control" name="patient_cnic" value="{{isset($patient) ? $patient->patient_cnic:''}}" aria-describedby="cnichelpname" placeholder="Enter CNIC Number">
                         </div>
                         <div class="col-3">
                             <label for="gender" class="col-form-label">Gender:</label>
@@ -68,12 +70,12 @@
                             <label for="age" class="col-form-label">Age:</label>
                         </div>
                         <div class="col-9">
-                            <input type="number" id="age" class="form-control me-2 w-50 d-block" name="patient_age" value="{{isset($patient)? $patient->patient_age:''}}" aria-describedby="agehelpname" placeholder="">
+                            <input type="number" id="age" class="form-control me-2 w-50 d-block" name="patient_age" value="{{isset($patient) ? $patient->patient_age:''}}" aria-describedby="agehelpname" placeholder="">
                         </div>
                         <div class="col-md-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary" name="addpatient">
                             @if (isset($patient))
-                                Update Patient
+                                Update
                                 @else
                                 Add Patient
                                 @endif

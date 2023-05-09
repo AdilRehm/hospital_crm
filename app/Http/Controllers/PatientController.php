@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
+    
     public function index2(Request $request)
     {
         return PatientModal::where('patient_name', 'LIKE', '%'.$request->data.'%')->get();
@@ -47,11 +48,10 @@ class PatientController extends Controller
     }
     public function update(Request $request)
     {
-        //dd($request);
-        $id = $request->id;
+        $ptid=$request->id;
         
-        $patient = PatientModal::find($id);
-        
+        $patient = PatientModal::find($ptid);
+        dd($patient);
         $patient->id=$request->id;
         $patient->patient_name=$request->patient_name;
         $patient->fh_name=$request->fh_name;

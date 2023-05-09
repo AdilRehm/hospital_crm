@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ use App\Http\Controllers\DischargeDetaile;
 use App\Http\Controllers\UserController;
 use App\Models\PatientModal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +31,16 @@ use Illuminate\Http\Request;
 Route::get('/logout', 'App\Http\Controllers\HomeController@logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/',function(){
-        return view('dashboard');
-    });
+    // Route::get('/',function(){
+    //     return view('dashboard');
+    // });
     
-    Route::get('/dashboard',function(){
-        return view('dashboard');
-    });
+    // Route::get('/dashboard',function(){
+    //     return view('dashboard');
+    // });
+
+    Route::get('/', [DashboardController::class, 'showTotalUsers']);
+
     
     // medicine all routes////////////////
     Route::get('/medicine', function () {
@@ -71,11 +76,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/userrole', function () {
         return view('userrole');
     });
-    Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
+    // Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
     
-    Route::get('/dischargeslip', function () {
-        return view('dischargeslip');
-    });
+    // Route::get('/dischargeslip', function () {
+    //     return view('dischargeslip');
+    // });
     Route::get('dischargeslip',[DischargeController::class, 'index']);
     
     Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);

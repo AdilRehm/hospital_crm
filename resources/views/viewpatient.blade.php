@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+@extends('layouts.header')
 @section('title', 'View Patient')
 
 @section('content')

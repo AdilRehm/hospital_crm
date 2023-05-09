@@ -17,4 +17,5 @@ class PatientModal extends Model
         'patient_gender',
         'patient_age',
     ];
+    
 }

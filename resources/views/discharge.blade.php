@@ -1,9 +1,9 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+@extends('layouts.header')
 @section('title', 'Discharge')
 @section('content')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.3/typeahead.bundle.min.js" integrity="sha512-E4rXB8fOORHVM/jZYNCX2rIY+FOvmTsWJ7OKZOG9x/0RmMAGyyzBqZG0OGKMpTyyuXVVoJsKKWYwbm7OU2klxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <div class="container-fluid">
         <form id="dischargeform" method="POSt" action="/discharge_csutomer">
             @csrf

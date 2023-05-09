@@ -1,9 +1,16 @@
 @extends('layouts.app')
-
+{{-- @extends('layouts.header') --}}
+@extends('layouts.bodycontent')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row d-flex align-items-center">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>Gghmedcloud</h1>
+        </div>
+        <div class="col-md-6">
+           <img class="img-fluid" src="images/clinicimg.jpg" alt=""> 
+        </div>
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
