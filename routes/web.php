@@ -10,6 +10,7 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DischargeController;
 use App\Http\Controllers\DischargeDetaile;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Models\PatientModal;
 use Illuminate\Http\Request;
