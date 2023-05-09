@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Route;
@@ -28,7 +27,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Route::get('/logout', 'App\Http\Controllers\HomeController@logout');
+Route::get('/',function(){
+return view('auth.login');
+})->name('login');
 
 Route::middleware(['auth'])->group(function () {
     // Route::get('/',function(){
@@ -41,52 +42,48 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'showTotalUsers']);
 
-    
-    // medicine all routes////////////////
-    Route::get('/medicine', function () {
-        return view('medicine');
-    });
-    Route::post('/medicine', [MedicineController::class, 'store'])->name('medicine.store');
-    Route::get('/medicine/edit/{id}', [MedicineController::class, 'edit'])->name('medicine.edit');
-    Route::post('/medicine/update', [MedicineController::class, 'update'])->name('medicine.update');
-    // view medicine routes
-    Route::get('/viewmedicine', function () {
-        return view('viewmedicine');
-    }); 
-    Route::get('/viewmedicine', [MedicineController::class, 'index']); 
-    Route::get('/viewmedicine/{id}', [MedicineController::class,'delete'])->name('medicine.delete');
-    
-    // patient all routes////////////////
-    Route::get('/patient', function () {
-        return view('patient');
-    });
-    Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
-    Route::get('/patient/edit/{id}', [PatientController::class, 'edit'])->name('patient.edit');
-    Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
-    Route::get('/viewpatient',[PatientController::class,'index']); //this is for public when it goes to auth it will remove|not
-    // view patient routes
-    Route::get('/viewpatients/{id}', [PatientController::class,'delete'])->name('viewpatient.delete');
-    
-    // discharge all routes////////////////
-    Route::get('/discharge', function () {
-        return view('/discharge');
-    });
-    
-    // userrole all routes////////////////
-    Route::get('/userrole', function () {
-        return view('userrole');
-    });
-    // Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
-    
-    // Route::get('/dischargeslip', function () {
-    //     return view('dischargeslip');
-    // });
-    Route::get('dischargeslip',[DischargeController::class, 'index']);
-    
-    Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);
 
+//-----------------------------------------------------------------------
+
+// medicine all routes////////////////
+Route::get('/medicine', function () {
+    return view('medicine');
+});
+Route::post('/medicine', [MedicineController::class, 'store'])->name('medicine.store');
+Route::get('/medicine/edit/{id}', [MedicineController::class, 'edit'])->name('medicine.edit');
+Route::post('/medicine/update', [MedicineController::class, 'update'])->name('medicine.update');
+// view medicine routes
+Route::get('/viewmedicine', function () {
+    return view('viewmedicine');
+}); 
+Route::get('/viewmedicine', [MedicineController::class, 'index']); 
+Route::get('/viewmedicine/{id}', [MedicineController::class,'delete'])->name('medicine.delete');
+
+// patient all routes////////////////
+Route::get('/patient', function () {
+    return view('patient');
+});
+Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
+Route::get('/patient/edit/{id}', [PatientController::class, 'edit'])->name('patient.edit');
+Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
+Route::get('/viewpatient',[PatientController::class,'index']); //this is for public when it goes to auth it will remove|not
+// view patient routes
+Route::get('/viewpatients/{id}', [PatientController::class,'delete'])->name('viewpatient.delete');
+
+// discharge all routes////////////////
+Route::get('/discharge', function () {
+    return view('/discharge');
 });
 
-Auth::routes();
+// userrole all routes////////////////
+Route::get('/userrole', function () {
+    return view('userrole');
+});
+Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dischargeslip', function () {
+    return view('dischargeslip');
+});
+Route::get('dischargeslip',[DischargeController::class, 'index']);
+
+Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);

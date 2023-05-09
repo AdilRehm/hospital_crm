@@ -178,14 +178,14 @@
                                                 <input type="text" class="form-control shadow" autocomplete="off" id="medication_name" name="medication_name[]">
                                                 <div id="medicinesug"></div>
                                                 <div class="d-flex">
-                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname" disabled>
-                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname" disabled>
+                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled>
+                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-1 mt-2 p-0">
                                                 <label for="medication_duration" class="form-label m-0 strong fs-6">Duration</label>
                                                 <input type="text" class="form-control shadow" id="medication_duration" name="medication_duration_sequence[]">
-                                                <select class="form-select" name="medication_duration_number">
+                                                <select class="form-select" name="medication_duration_number[]">
                                                     <option value="">Select</option>
                                                     <option value="days">Day(s)</option>
                                                     <option value="weeks">Week(s)</option>
@@ -199,7 +199,7 @@
                                             <div class="col-md-1 mt-2 p-0">
                                                 <label for="medication_dosage" class="form-label m-0 strong fs-6">Dosage</label>
                                                 <input type="text" class="form-control shadow" id="medication_dosage" name="medication_dosage_input[]">
-                                                <select class="form-select" name="medication_dosage_select">
+                                                <select class="form-select" name="medication_dosage_select[]">
                                                     <option value="">Select</option>
                                                     <option value="capsules">Capsule(s)</option>
                                                     <option value="tablet">Tablet(s)</option>
@@ -310,7 +310,7 @@
                                                 <input type="text" class="form-control shadow" id="medication_instruction" name="medication_instruction[]">
                                             </div>
                                             <div class="col-md-1 mt-2 p-0 d-flex align-items-center">
-                                                <button class="btn btn-default delete-button btnremove" id="deletebutton" name="medication_del"><i class="bi bi-trash3 fs-5"></i></button>
+                                                <button class="btn btn-default delete-button btnremove" id="deletebutton" name="medication_del[]"><i class="bi bi-trash3 fs-5"></i></button>
                                             </div>
                                         </div>
                                     </div>

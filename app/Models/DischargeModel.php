@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DischargeModel extends Model
 {
-    protected $table='discharge';
-    protected $fillable=[
-        'id',
+    protected $table = 'discharge';
+    protected $fillable = [
         'discharge_patient_name',
         'discharge_admission_date',
         'discharge_discharge_date',
