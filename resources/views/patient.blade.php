@@ -8,7 +8,7 @@
         <form class="" method="POST" action="{{ isset($patient) ? route('patient.update') : route('patient.store') }}">
             @csrf
             <div class="row d-flex align-content-center">
-                <h4 class="col-12 pb-2 text-center">Add Patient</h4>
+                <h1 class="col-12 pb-2">{{ isset($medicine) ? 'Update Patient' : 'Add Patient' }}</h1>
             </div>
             <div class="card shadow">
                 <div class="card-body my-3">
@@ -71,6 +71,39 @@
                         </div>
                         <div class="col-9">
                             <input type="number" id="age" class="form-control me-2 w-50 d-block" name="patient_age" value="{{isset($patient) ? $patient->patient_age:''}}" aria-describedby="agehelpname" placeholder="">
+                        </div>
+                        <div class="col-3">
+                            <label for="doa" class="col-form-label">Date of Admission:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" class="form-control me-2 w-50 d-block" id="doa" name="patient_admission_date" value="{{isset($patient) ? $patient->patient_admission_date:''}}">
+                        </div>
+                        <div class="col-3">
+                            <label for="dod" class="col-form-label">Date of Discharge:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" class="form-control me-2 w-50 d-block" id="dod" name="patient_discharge_date" value="{{isset($patient) ? $patient->patient_discharge_date:''}}">
+                        </div>
+                        <div class="col-3">
+                            <label for="pstable" class="col-form-label">Patient Stable:</label>
+                        </div>
+                        <div class="col-9 d-flex flex-row justify-content-evenly">
+                            <p class=""><input type="radio" class="form-checkbox" id="stable_yes" name="stable_patient" value="Yes" checked aria-describedby="genderhelpname"
+                            @if (isset($patient) && $patient->stable_patient == 'Yes')
+                                checked
+                            @endif
+                             >&nbsp;Yes</p>
+                            <p class=""><input type="radio" class="form-checkbox" id="stable_no" name="stable_patient" value="No"  aria-describedby="genderhelpname"
+                            @if (isset($patient) && $patient->stable_patient == 'No')
+                                checked
+                            @endif
+                            >&nbsp;No</p>
+                        </div>
+                        <div class="col-3">
+                            <label for="sspp" class="col-form-label">SSP Patient</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" class="form-control me-2" id="sspp" name="patient_ssp" value="{{isset($patient) ? $patient->patient_ssp:''}}">
                         </div>
                         <div class="col-md-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary" name="addpatient">

@@ -17,6 +17,7 @@ class PatientController extends Controller
     }
     public function index()
     {
+        
         $pati=PatientModal::all();
         
       return view('viewpatient',compact('pati'));
@@ -33,6 +34,10 @@ class PatientController extends Controller
         $pat->patient_cnic=$request->patient_cnic;
         $pat->patient_gender=$request->patient_gender;
         $pat->patient_age=$request->patient_age;
+        $pat->patient_admission_date=$request->patient_admission_date;
+        $pat->patient_discharge_date=$request->patient_discharge_date;
+        $pat->stable_patient=$request->stable_patient;
+        $pat->patient_ssp=$request->patient_ssp;
        // dd();
         $pat->save();
         return view('patient');
@@ -51,7 +56,7 @@ class PatientController extends Controller
         $ptid=$request->id;
         
         $patient = PatientModal::find($ptid);
-        dd($patient);
+        //dd($patient);
         $patient->id=$request->id;
         $patient->patient_name=$request->patient_name;
         $patient->fh_name=$request->fh_name;
@@ -59,6 +64,10 @@ class PatientController extends Controller
         $patient->patient_cnic=$request->patient_cnic;
         $patient->patient_gender=$request->patient_gender;
         $patient->patient_age=$request->patient_age;
+        $patient->patient_admission_date=$request->patient_admission_date;
+        $patient->patient_discharge_date=$request->patient_discharge_date;
+        $patient->stable_patient=$request->stable_patient;
+        $patient->patient_ssp=$request->patient_ssp;
         $patient->update();
        return view('patient');
     }
@@ -73,5 +82,12 @@ class PatientController extends Controller
         } else {
             return redirect()->back()->with('error', 'Patient not found.');
         }
+    }
+
+    public function discharge(Request $request)
+    {
+        $id = $request->id;
+        $patient = PatientModal::whereId($id)->first(); 
+        return view('discharge', compact('patient'));
     }
 }

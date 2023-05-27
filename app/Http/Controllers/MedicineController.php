@@ -29,6 +29,10 @@ class MedicineController extends Controller
         $m->medicine_name=$request->medicine_name;
         $m->medicine_salt=$request->medicine_salt;
         $m->medicine_category=$request->medicine_category;
+        $m->medicine_duration_sequence=$request->medicine_duration_sequence;
+        $m->medicine_dosage_input=$request->medicine_dosage_input;
+        $m->medicine_route=$request->medicine_route;
+        $m->medicine_instruction=$request->medicine_instruction;
         $m->medicine_remarks=$request->medicine_remarks;
         $m->save();
        return view ('medicine');
@@ -50,6 +54,11 @@ class MedicineController extends Controller
         $medicine->medicine_name=$request->medicine_name;
         $medicine->medicine_salt=$request->medicine_salt;
         $medicine->medicine_category=$request->medicine_category;
+        $medicine->medicine_duration_sequence=$request->medicine_duration_sequence;
+        $medicine->medicine_dosage_input=$request->medicine_dosage_input;
+        $medicine->medicine_route=$request->medicine_route;
+        $medicine->medicine_instruction=$request->medicine_instruction;
+
         $medicine->medicine_remarks=$request->medicine_remarks;
         $medicine->update();
        return view('medicine');

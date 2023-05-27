@@ -51,7 +51,7 @@ class DischargeController extends Controller
     public function index()
     {
         $latestloadeddata = DischargeDetailModel::latest('created_at')->value('created_at');
-        $newdata = DischargeDetailModel::with('drugs')->whereId(1)->first();
+        $newdata = DischargeDetailModel::with('drugs')->whereId(7)->first();
         // return $newdata->drugs;
         return view('/dischargeslip', compact('newdata'));
     }

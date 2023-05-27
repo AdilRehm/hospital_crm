@@ -21,6 +21,10 @@ class CreatePatientTable extends Migration
             $table->text('patient_cnic')->nullable();
             $table->string('patient_gender')->nullable();
             $table->integer('patient_age')->nullable();
+            $table->date('patient_admission_date')->nullable();
+            $table->date('patient_discharge_date')->nullable();
+            $table->string('stable_patient')->nullable();
+            $table->string('patient_ssp')->nullable();
             $table->timestamps();
         });
     }

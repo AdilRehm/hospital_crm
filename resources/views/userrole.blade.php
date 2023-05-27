@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@extends('layouts.bodycontent')
+@extends('layouts.header')
 @section('title', 'Add User')
 @section('content')
 <div class="container">
@@ -12,13 +14,6 @@
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Add User
-                                </button>
-                            </h2>
-                        </div>
-                        <div class="col-md-auto col-4 p-0">
-                            <h2 class="accordion-header" id="usermodules">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#usermodulestwo" aria-expanded="false" aria-controls="usermodulestwo">
-                                User Modules
                                 </button>
                             </h2>
                         </div>
@@ -80,60 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                             <!-- User Modules section collapse list form-->
-                             <div class="col-md-12">
-                                <div id="usermodulestwo" class="accordion-collapse collapse" aria-labelledby="usermodules" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body d-flex d-inline-flex">
-                                        <form class="row">    
-                                            <div class="col-md-2">
-                                                <label for="usermodulename" class="col-form-label"><strong>Name</strong></label>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <input type="text" id="usermodulename" required="required" class="form-control" name="usermodule_name" aria-describedb="doctornamehelpname" placeholder="Name">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="doctorrole" class="col-form-label"><strong>User Module</strong></label>
-                                            </div>
-                                            <div class="col-md-10 mt-3 mb-2 d-flex justify-content-around">
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="doctorrole1" name="doctor_role1" value="Dashboard" aria-describedby="doctoraccesshelp">
-                                                    <label class="form-check-label fs-6" for="doctorrole1">
-                                                    Dashboard
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="doctorrole2" name="doctor_role2" value="Medicine" aria-describedby="doctoraccesshelp">
-                                                    <label class="form-check-label fs-6" for="doctorrole2">
-                                                    Medicine
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="doctorrole3" name="doctor_role3" value="Patient" aria-describedby="doctoraccesshelp">
-                                                    <label class="form-check-label fs-6" for="doctorrole3">
-                                                    Patient
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" id="doctorrole4" name="doctor_role4" value="Discharge" aria-describedby="doctoraccesshelp">
-                                                    <label class="form-check-label fs-6" for="doctorrole4">
-                                                        Discharge
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="moduleremarks" class="col-form-label"><strong>Remarks:</strong></label>
-                                            </div>
-                                            <div class="col-md-10 d-flex flex-row justify-content-evenly">
-                                                <input type="text" id="moduleremarks" class="form-control me-2" name="moduler_emarks" aria-describedby="moduleremarkshelp" placeholder="Remarks">
-                                            </div>
-                                            <div class="col-md-12 mt-4">
-                                                <button type="submit" class="btn btn-primary" required="required" name="save_user_module">Save User Module</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                             </div>
                              <!-- User Operations section collapse list form-->
                              <div class="col-md-12">
                                 <div id="useroperationsthree" class="accordion-collapse collapse" aria-labelledby="useroperations" data-bs-parent="#accordionExample">
@@ -248,3 +189,4 @@
             </div>           
 </div>
 @endsection
+

@@ -3,33 +3,147 @@
 @extends('layouts.header')
 @section('title', 'Discharge')
 @section('content')
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+<input class="" type="text" hidden id="autocomplete-input">
+<ul id="suggestions"></ul>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<script>
+    function GetProjectListDropdownByName(event,var_this){
+        var project_input_value = var_this.value;
+        var formData = new FormData();
+        formData.append('term', project_input_value);
+        $.ajax({
+            type: "POST",
+            //  url : '/viewpatient'+ crsr,
+            url: '/get_data'+'?_token=' + '{{ csrf_token() }}',
+            data:formData,
+            cache: false,
+            contentType: false, 
+            processData: false,
+            dataType:'json',
+            success:function(data){ 
+                console.log(data);
+                $('#nameList').empty();
+                $("#discharge_patient_name_in").val(data[0].id)
+                $.each(data, function (key, value) {   
+                    $('#nameList').append(`<option data-id="`+value.id+`" value="`+value.patient_name+`">`+value.id+' '+value.patient_name+' '+value.patient_number+`</option>`);
+                });
+            }
+        });
+    }
+    // function getID() {  
+        // var id = $(this).val();
+        // var selectedOptionId = $('#nameList option[value="' + id + '"]').data('id'); // Get the ID of the selected option
+        // console.log(id);
+    // }
+    $(document).ready(function() {
+        $('#autocomplete-input').keyup(function() {
+            var term = $(this).val();
+            $.ajax({
+                url: '/discharge',
+                data: { term: term },
+                dataType: 'json',
+                success: function(suggestions) {
+                    
+                    // $.each(suggestions, function(index, suggestion) {
+                    //     $('#suggestions').append('<li>' + suggestion.name + '</li>');
+                    // });
+                }
+            });
+        });
+        setTimeout(() => {
+            $("#clonebutton").trigger('click')
+        }, 2000);
+    });
+
+// medicne value fetching 
+function GetProjectListDropdownByNamemed(var_this, id){
+    var project_input_value = var_this.value;
+    var formData = new FormData();
+    console.log(var_this);
+    formData.append('term', project_input_value);
+    $.ajax({
+        type: "POST",
+        url: '/get_med'+'?_token=' + '{{ csrf_token() }}',
+        data:formData,
+        cache: false,
+        contentType: false, 
+        processData: false,
+        dataType:'json',
+        success:function(data){ 
+            $('#nameListmed').empty();
+            $("#medication_duration_"+id).val(data[0].medicine_duration_sequence)
+            $("#medication_dosage_"+id).val(data[0].medicine_dosage_input)
+            $("#route_"+id).val(data[0].medicine_route)
+            $("#medication_frequency_"+id).val(data[0].medicine_instruction)
+            $("#medication_instruction_"+id).val(data[0].medicine_remarks)
+            
+            // $("#medication_dosage_select_"+id).val(data[0].medicine_duration_sequence)
+            // $("#medication_duration_number_"+id).val(data[0.medicine_dosage_input])
+
+            Object.keys(data).forEach(key => {
+            $('#nameListmed').append(`<option value="`+data[key].medicine_name+`" data-xyz=`+data[key].id+`></option>`);
+            });
+        }
+    });
+}
+
+
+
+    $(document).ready(function() {
+    $('#autocomplete-input').keyup(function() {
+        var term = $(this).val();
+        $.ajax({
+            url: '/discharge',
+            data: { term: term },
+            dataType: 'json',
+            success: function(suggestions) {
+                
+                // $.each(suggestions, function(index, suggestion) {
+                //     $('#suggestions').append('<li>' + suggestion.name + '</li>');
+                // });
+            }
+        });
+    });
+});
+
+</script>
+
+
     <div class="container-fluid">
         <form id="dischargeform" method="POSt" action="/discharge_csutomer">
             @csrf
             <div class="row d-flex align-content-center">
-                <h4 class="col-12 pb-2 text-start">Add Health Record</h4>
+                <h1 class="col-12 pb-2">Add Health Record</h1>
             </div>
             <div class="card shadow">
                 <div class="card-body">
                     <div class="row grid gap-2">
                         <div class="col-md-auto col-sm-12">
                             <div class="input-group">
-                            <input type="text" id="inputField" autocomplete="off" class="form-control rounded-end rounded-5" name="discharge_patient_name" placeholder="Search By Name, Mr#, or Phone">
-                            <div id="suggestions"></div>
+                            
+                            <input autocomplete="off"  class="form-control form_control_datalist search_project_name" value="{{@$patient->patient_name}}" onkeyup="GetProjectListDropdownByName(event,this)" list="nameList" id="getProjectList_byName" class="form-control rounded-end rounded-5" placeholder="Search By Name, Mr#, or Phone" style="border-radius: 0px;">
+                            <input type="text" hidden name="discharge_patient_name" id="discharge_patient_name_in" value="{{@$patient->id}}">
+                            <datalist id="nameList">
+                            </datalist>
+
+                            {{-- <input type="text" id="inputField" autocomplete="off" class="form-control rounded-end rounded-5" name="discharge_patient_name" placeholder="Search By Name, Mr#, or Phone">
+                            <div id="suggestions"></div> --}}
                             </div>
                         </div>
                         <div class="col-md-auto col-sm-12 d-none d-md-block">
                             <button class="btn btn-primary"><strong>Add Patient</strong><i class="bi bi-plus"></i></button>
                         </div>
-                        <div class="col-md-auto col-sm-6 d-flex align-items-center">
+                        {{-- <div class="col-md-auto col-sm-6 d-flex align-items-center">
                             <label class="form-label me-1 mt-2" for="doa">Date&nbsp;of&nbsp;Admission</label>
                             <input type="date" class="form-control rouded rounded-5" id="doa" name="discharge_admission_date">
                         </div>
                         <div class="col-md-auto col-sm-6 d-flex align-items-center">
                             <label class="form-label me-1 mt-2" for="dod">Date&nbsp;of&nbsp;Discharge</label>
                             <input type="date" class="form-control rouded rounded-5" id="dod" name="discharge_discharge_date">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -172,158 +286,17 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     
                                     <div class="accordion-body" id="parent-container" >
-                                        <div class="row  d-flex d-inline-flex" id="interface-container">
-                                            <div class="col-md-3 mt-2 p-0">
-                                                <label for="medication_name" class="form-label m-0 strong fs-6">Name</label>
-                                                <input type="text" class="form-control shadow" autocomplete="off" id="medication_name" name="medication_name[]">
-                                                <div id="medicinesug"></div>
-                                                <div class="d-flex">
-                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled>
-                                                    <input type="text" class="form-control shadow" id="medication_name" name="medicationname[]" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1 mt-2 p-0">
-                                                <label for="medication_duration" class="form-label m-0 strong fs-6">Duration</label>
-                                                <input type="text" class="form-control shadow" id="medication_duration" name="medication_duration_sequence[]">
-                                                <select class="form-select" name="medication_duration_number[]">
-                                                    <option value="">Select</option>
-                                                    <option value="days">Day(s)</option>
-                                                    <option value="weeks">Week(s)</option>
-                                                    <option value="months">Month(s)</option>
-                                                    <option value="continously">Continously</option>
-                                                    <option value="when required">When Required</option>
-                                                    <option value="stat">STAT</option>
-                                                    <option value="prn">PRN</option>
-                                                </select>                                        
-                                            </div>
-                                            <div class="col-md-1 mt-2 p-0">
-                                                <label for="medication_dosage" class="form-label m-0 strong fs-6">Dosage</label>
-                                                <input type="text" class="form-control shadow" id="medication_dosage" name="medication_dosage_input[]">
-                                                <select class="form-select" name="medication_dosage_select[]">
-                                                    <option value="">Select</option>
-                                                    <option value="capsules">Capsule(s)</option>
-                                                    <option value="tablet">Tablet(s)</option>
-                                                    <option value="ml">ml</option>
-                                                    <option value="mg">mg</option>
-                                                    <option value="IU">IU</option>
-                                                    <option value="drop">DROP</option>
-                                                    <option value="tablespoon">Tablespoon</option>
-                                                    <option value="teaspoon">Teaspoon(s)</option>
-                                                    <option value="units">Unit(s)</option>
-                                                    <option value="puff">Puff(s)</option>
-                                                    <option value="sachet">Sachet</option>
-                                                    <option value="ijection">Ijection</option>
-                                                    <option value="dose step">Dose Step</option>
-                                                    <option value="dropper">Dropper</option>
-                                                    <option value="ml/h">ml/h</option>
-                                                </select> 
-                                            </div>
-                                            <div class="col-md-2 mt-2 p-0">
-                                                <label for="route_" class="form-label m-0 strong fs-6">Route</label>
-                                                <select class="form-select" name="medication_route[]" id="route_">
-                                                    <option value="">Select Intake</option>
-                                                    <option value="oral">Oral</option>
-                                                    <option value="nasal">Nasal</option>
-                                                    <option value="Intravenous">Intravenous</option>
-                                                    <option value="topical">Topical</option>
-                                                    <option value="Intraosseous">Intraosseous</option>
-                                                    <option value="Intrathecal">Intrathecal</option>
-                                                    <option value="Intraperitoneal">Intraperitoneal</option>
-                                                    <option value="Intradernal">Intradernal</option>
-                                                    <option value="Nasogastric">Nasogastric</option>
-                                                    <option value="Sub Lingual">Sub Lingual</option>
-                                                    <option value="Per Rectum">Per Rectum</option>
-                                                    <option value="inhalation">Inhalation</option>
-                                                    <option value="Intraoccular">Intraoccular</option>
-                                                </select> 
-                                            </div>
-                                            <div class="col-md-2 mt-2 p-0">
-                                                <label for="medication_frequency" class="form-label m-0 strong fs-6">Frequency</label>
-                                                <select class="form-select" name="medication_frequency[]" id="medication_frequency">
-                                                    <option value="">Select</option>
-                                                    <option value="صرف ایک بار">Only once</option>
-                                                    <option value="دن میں ایک دفحہ">Once a day</option>
-                                                    <option value="دن میں دو بار">Twice a day</option>
-                                                    <option value="دن میں تین بار">Thrice a day</option>
-                                                    <option value="دن میں چار بار">Four times a day</option>
-                                                    <option value="سونے سے پہلے">Before Bed</option>
-                                                    <option value="ہر گھنٹے">Every hour</option>
-                                                    <option value="ہر 2 گھنٹے">Every 2 hours</option>
-                                                    <option value="ہر 3 گھنٹے">Every 3 hours</option>
-                                                    <option value="ہر 4 گھنٹے بعد">Every 4 hours</option>
-                                                    <option value="ہر 6 گھنٹے بعد">Every 6 hours</option>
-                                                    <option value="ہر 8 گھنٹے">Every 8 hours</option>
-                                                    <option value="ہر 12 گھنٹے">Every 12 hours</option>
-                                                    <option value="ہر دوسرے دن">Every Other day</option>
-                                                    <option value="ہر 3 دن">Every 3 days</option>
-                                                    <option value="ہفتے میں ایک بار">Once a Week</option>
-                                                    <option value="ہفتے میں دو دفعہ">Twice a Week</option>
-                                                    <option value="ہفتے میں تین بارk">Thrice a Week</option>
-                                                    <option value="ہر 10 دن بعد">Every 10 Days</option>
-                                                    <option value="ہر 15 دن بعد">Every 15 Days</option>
-                                                    <option value="مہینے میں ایک بار">Once a month</option>
-                                                    <option value="3 مہینے میں ایک بار">Once a 3 months</option>
-                                                    <option value="سال میں ایک بار">Once a Year</option>
-                                                    <option value="ہر صبح">Every Morning</option>
-                                                    <option value="ہر شام">Every Evening</option>
-                                                    <option value="ہر رات">Every Night</option>
-                                                    <option value="اگر ضرورت ہو تو">If needed</option>
-                                                    <option value="ناشتے سے پہلے">Before Breakfast</option>
-                                                    <option value="مسلسل">Continously</option>
-                                                    <option value="دوپہر کے کھانے سے پہلے">Before Lunch</option>
-                                                    <option value="دوپہر کے کھانے کے بعد">After Lunch</option>
-                                                    <option value="کھانے سے پہلے">Before Meal</option>
-                                                    <option value="کھانے کے بعد">After Meal</option>
-                                                    <option value="ڈنر سے پہلے">Before Dinner</option>
-                                                    <option value="ڈنر کے بعد">After Dinner</option>
-                                                    <option value="جیسا کہ مشورہ دیا گیا ہے۔">As Advised</option>
-                                                    <option value="مہینے میں دو بار">Twice a month</option>
-                                                    <option value="نا شتے کے بعد">After Breakfast</option>
-                                                    <option value="ناشتہ اور لنچ سے پہلے">Before Breakfast and Lunch</option>
-                                                    <option value="لنچ اور ڈنر سے پہلے">Before Lunch and Dinner</option>
-                                                    <option value="ناشتہ اور رات کے کھانے سے پہلے">Before Breakfast and Dinner</option>
-                                                    <option value="ناشتہ اور دوپہر کے کھانے کے بعد">After Brealfast and Lunch</option>
-                                                    <option value="لنچ اور ڈنر کے بعد">After Lunch and Dinner</option>
-                                                    <option value="ناشتہ، لنچ اور ڈنر سے پہلے">Before Breakfast, Lunch & Dinner</option>
-                                                    <option value="ناشتے کے بعد، دوپہر کا کھانا اور رات کا کھانا دوپہر کو">After Breakfast, Lunch & Dinner at noon</option>
-                                                    <option value="دوپہر اور شام">Noon and Evening</option>
-                                                    <option value="صبح، شام، رات">Morning, Evening, Night</option>
-                                                    <option value="صبح اور دوپہر">Morning and Noon</option>
-                                                    <option value="صبح 6 بجے، 10 بجے، دوپہر 2 بجے، شام 6 بجے، رات 10 بجے">at 6am, 10am, 2pm, 6pm, 10pm</option>
-                                                    <option value="دن 21 تک دن میں تین بار , پھر اگلے 2 مہینوں تک صرف رات کو">Thrice a day for 21 days, then only at night for next 2 months</option>
-                                                    <option value="دن21 کے لیے دن میں دو بار، پھر اگلے 2 مہینوں کے لیے صرف رات کو">Twice a day for 21 days, then only at night for next 2 months</option>
-                                                    <option value="دن میں دو بار 21 دن کے لیے، پھر اگلے 2 ماہ کے لیے 1 دن کو چھوڑ کر 1 کیپسول لیں۔">Twice a day for 21 days, then onwards for next 2 months take 1 capsule by skipping 1 day</option>
-                                                    <option value="ہفتے میں دو بار ڈائیلاسز کے بعد">Twice a week after dialysis</option>
-                                                    <option value="ہفتے میں تین بار ڈائیلاسز کے بعد">Thrice a week after dialysis</option>
-                                                    <option value="ڈبل لیمن میں ڈائلیسس کے بعد">After dialysis in double lumen</option>
-                                                    <option value="ڈائیلاسز کے آغاز پر">At the start of dialysis</option>
-                                                    <option value="ڈائیلاسز کے دوران">During dialysis</option>
-                                                    <option value="ڈائیلاسز سے پہلے">Before dialysis</option>
-                                                    <option value="پہلے انجکشن اب، پھر 1 ماہ بعد، اگلا 2 ماہ کے آخر میں، تیسرا انجیکشن 6 ماہ کے آخر میں">First injection now, then after 1 months, next at 2 months end, 3rd injection at 6 months end</option>
-                                                    <option value="سال میں ایک بار">Once a year</option>
-                                                    <option value="اب ایک بار انجکشن لگائیں، ایک مہینے بعد">Once injection now, one after a month</option>
-                                                    <option value="اب ایک بار انجیکشن لگائیں، ایک مہینے بعد، اگلا 6 ماہ بعد">Once injection now, one after a month, next after 6 months</option>
-                                                </select> 
-                                            </div>
-                                            <div class="col-md-2 mt-2 p-0">
-                                                <label for="medication_instruction" class="form-label m-0 strong fs-6">Instruction</label>
-                                                <input type="text" class="form-control shadow" id="medication_instruction" name="medication_instruction[]">
-                                            </div>
-                                            <div class="col-md-1 mt-2 p-0 d-flex align-items-center">
-                                                <button class="btn btn-default delete-button btnremove" id="deletebutton" name="medication_del[]"><i class="bi bi-trash3 fs-5"></i></button>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 d-flex justify-content-end mt-4">
-                                            <button class="btn btn-primary" id="clonebutton" name="medicine_add"><i class="bi bi-patch-plus"></i>Drugs</button>
+                                            <button type="button" class="btn btn-primary" id="clonebutton" name="medicine_add"><i class="bi bi-patch-plus"></i>Drugs</button>
                                         </div>
                                     </div>
                                 </div>
                              </div>
                             <div class="col-md-12 p-0 mt-2 d-flex align-items-end">
-                                <button class="btn btn-primary me-2" type="submit" id="dischargesave">Save</button>
-                                <button class="btn btn-primary" id="dischargeprint" onclick="openPopup()">Print</button>
+                                <button class="btn btn-primary me-2" type="submit" id="dischargesave">Save and Print</button>
                             </div>
                          </div>
                     </div>

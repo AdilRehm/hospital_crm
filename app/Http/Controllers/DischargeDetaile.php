@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DischargeDetailModel;
 use App\Models\DischargeMedicinemodel;
+use App\Models\PatientModal;
 
 class DischargeDetaile extends Controller
 {
     public function create(Request $request)
     {
+        
         $data = [
-            'discharge_patient_name' => $request->discharge_patient_name,
+            'patient_detail_id' => $request->discharge_patient_name,
             'discharge_admission_date' => $request->discharge_admission_date,
             'discharge_discharge_date' => $request->discharge_discharge_date,
             'prescription_corbidity' => json_encode($request->prescription_corbidity),
@@ -24,18 +26,19 @@ class DischargeDetaile extends Controller
             'prescription_follow_up_instructions' => json_encode($request->prescription_follow_up_instructions),
             'prescription_second_other' => $request->prescription_second_other,
         ];
-
+        
         $discharge_detail_id = DischargeDetailModel::insertGetId($data);
         $medication_name = $request->medication_name;
         $medication_route = $request->medication_route;
         $medication_frequency = $request->medication_frequency;
         $medication_instruction = $request->medication_instruction;
+        
 
         $medication_duration_sequence = $request->medication_duration_sequence;
         $medication_duration_number = $request->medication_duration_number;
         $medication_dosage_input = $request->medication_dosage_input;
         $medication_dosage_select = $request->medication_dosage_select;
-
+        
         foreach ($medication_name as $x => $value) {
             $data2 = [
                 'discharge_detail_id' => $discharge_detail_id,
@@ -47,12 +50,13 @@ class DischargeDetaile extends Controller
                 'medication_instruction' => $medication_instruction[$x],
             ];
             DischargeMedicinemodel::create($data2);
+            
         }
-
         
-        // $newdata = DischargeModel::where('')->get();
-        // return view('/dischargeslip', compact('newdata'));
-         return view('/discharge');
+        $newdata = DischargeDetailModel::with(['drugs', 'patient'])->whereId($discharge_detail_id)->first();
+        // return $newdata->patient->patient_name;
+        return view('/dischargeslip', compact('newdata'));
+        //  return view('/discharge');
     }
 
     /**

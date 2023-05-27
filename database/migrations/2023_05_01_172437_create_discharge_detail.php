@@ -15,7 +15,7 @@ class CreateDischargeDetail extends Migration
     {
         Schema::create('discharge_detail', function (Blueprint $table) {
             $table->id();
-            $table->string('discharge_patient_name')->nullable();
+            $table->string('patient_detail_id')->nullable();
             $table->date('discharge_admission_date')->nullable();
             $table->date('discharge_discharge_date')->nullable();
             $table->json('prescription_corbidity')->nullable();

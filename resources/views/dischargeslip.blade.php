@@ -1,37 +1,53 @@
 @extends('layouts.app')
 @extends('layouts.bodycontent')
 @extends('layouts.header')
+
 @section('title', 'DischargeSlip')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var noPrintElements = document.querySelectorAll('.no-print');
+            for (var i = 0; i < noPrintElements.length; i++) {
+            noPrintElements[i].remove();
+            }
+            window.print();
+        });
+    </script>
 @section('content')
 <section id="printarea">
     <div class="container">
        <div class="row">
+            <h3 class="col-12 d-flex justify-content-center">Department of Medicine</h3>
+            <h3 class="col-12 d-flex justify-content-center">GGH MED CLOUD</h3>
+            <span class="col-12 text-center"><strong>Dr. Amin Anjum</strong>(Head of Dept), <strong>Dr. Nazir Ahmad </strong> ( Sr, Consultant), <strong> Ahmad Ayaz Sabri</strong> ( Consultant ),<strong> Rana Suhail</strong> (SR), <strong> Rehan Javed</strong> (Consultant) <br> <strong> Sara Daud </strong> ( Pulmonologist ),<strong> Dr. Yasir Mufti</strong> ( Cardiologist)</span>
             <h4 class="col-12 d-flex justify-content-center">Discharge Summery</h4>
             <hr class="w-100">
             {{-- @foreach ($newdata as $newdata) --}}
             <div class="col-4 d-flex flex-column">
-                <label for="">Name: <span>{{$newdata->discharge_patient_name}}</span></label>
-                <label for="">MR# <span>{{$newdata->id}}</span></label>
+                <label for="">Name: <span>{{ @$newdata->patient->patient_name}}</span></label>
+                <label for="">MR# <span>{{@$newdata->patient->id}}</span></label>
                 <label for="">Condition on Discharge: <span>{{$newdata->prescription_other}}</span></label>
             </div>
             <div class="col-4 d-flex flex-column">
-                <label for="">Age/Gender: <span>{{$newdata->discharge_patient_name}}</span></label>
-                <label for="">Date of Admission: <span>{{$newdata->discharge_admission_date}}</span></label>
-                <label for="">SSP: <span>{{$newdata->discharge_patient_name}}</span></label>
+                <label for="">Age/Gender: <span>{{@$newdata->patient->patient_age}}</span></label>
+                <label for="">Date of Admission: <span>{{@$newdata->patient->patient_admission_date}}</span></label>
+                <label for="">SSP: <span>{{@$newdata->patient->patient_ssp}}</span></label>
             </div>
             <div class="col-4 d-flex flex-column">
-                <label for="">Date: <span>{{$newdata->created_at}}</span></label>
-                <label for="">Date of Discharge: <span>{{$newdata->discharge_discharge_date}}</span></label>
+                <label for="">Date: <span>{{$newdata->patient->created_at}}</span></label>
+                <label for="">Date of Discharge: <span>{{@$newdata->patient->patient_discharge_date}}</span></label>
             </div>
             <hr class="w-100">
             <label class="col-12" for="">Presription</label>
             <div class="col-12 d-flex flex-column">
                 <strong for="">Co-Morbidity</strong>
                 <label for="">
-                    @if (!is_null($newdata->prescription_corbidity))
-                    @foreach (json_decode($newdata->prescription_corbidity) as $corbidity)
-                        {{ $corbidity }}<br>
-                    @endforeach
+                    @if (!is_null($newdata->prescription_corbidity) && $newdata->prescription_corbidity != 'null')
+                        @if (count(json_decode($newdata->prescription_corbidity))>0)
+                            @foreach (json_decode($newdata->prescription_corbidity) as $corbidity)
+                                {{ $corbidity }}<br>
+                            @endforeach
+                        @endif
                     @endif
                 </label>
                 <strong for="">Final Diagnose</strong>
@@ -45,11 +61,14 @@
                 <strong for="">Follow Up Instructions</strong>
                 <label for="">
                     @php
-                    if (!is_null($newdata->prescription_follow_up_instructions)){
-                        foreach (json_decode($newdata->prescription_follow_up_instructions) as $value) {
-                            echo getFOllowUps($value)."<br>";
+                        if (!is_null($newdata->prescription_follow_up_instructions) && $newdata->prescription_follow_up_instructions != 'null') {
+                            if (count(json_decode($newdata->prescription_follow_up_instructions))>0){
+                            foreach (json_decode($newdata->prescription_follow_up_instructions) as $value) {
+                                echo getFOllowUps($value)."<br>";
+                            }
                         }
-                    }
+                        }
+                        
                     @endphp
                 </label>
                 <strong for="">Doctor Name</strong>
@@ -87,10 +106,10 @@
                 </table>
             </div>
             {{-- @endforeach --}}
-            <div class="col-12 d-flex flex-row no-print">
-            <button class="btn btn-danger w-25" onclick="printArea()">Print the Discharge Survey</button>
+            {{-- <div class="col-12 d-flex flex-row no-print">
+            <button class="btn btn-danger w-25" onclick="window.print()">Print the Discharge Survey</button>
             <button class="btn btn-primary w-25 ms-2" onclick="closepoup()">Close Survey</button>
-            </div>
+            </div> --}}
        </div> 
     </div>
 </section>

@@ -11,7 +11,8 @@ class DischargeMedicinemodel extends Model
     protected $table='discharge_medication';
     protected $fillable=[
         'id',
-        'discharge_detail_id', 
+        'discharge_detail_id',
+        'patient_detail_id',
         'discharge_patient_name',
         'medication_name',
         'medication_duration',
@@ -24,5 +25,9 @@ class DischargeMedicinemodel extends Model
     public function dischargemedicine(): BelongsTo
     {
         return $this->belongsTo(DischargeDetailModel::class);
+    }
+    public function dischargepatient(): BelongsTo
+    {
+        return $this->belongsTo(PatientModal::class);
     }
 }

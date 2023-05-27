@@ -18,6 +18,10 @@ class CreateMedicineTable extends Migration
             $table->string('medicine_name')->nullable();
             $table->string('medicine_salt')->nullable();
             $table->string('medicine_category')->nullable();
+            $table->string('medicine_duration_sequence')->nullable();
+            $table->string('medicine_dosage_input')->nullable();
+            $table->string('medicine_route')->nullable();
+            $table->string('medicine_instruction')->nullable();
             $table->string('medicine_remarks')->nullable();
             $table->timestamps();
         });

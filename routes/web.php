@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AutoComplete;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 
@@ -65,23 +66,31 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/patient/edit/{id}', [PatientController::class, 'edit'])->name('patient.edit');
     Route::post('/patient/update', [PatientController::class, 'update'])->name('patient.update');
     Route::get('/viewpatient',[PatientController::class,'index']); //this is for public when it goes to auth it will remove|not
+    
+    
     // view patient routes
-    Route::get('/viewpatients/{id}', [PatientController::class,'delete'])->name('viewpatient.delete');
+    Route::get('/viewpatient/{id}', [PatientController::class,'delete'])->name('viewpatient.delete');
+    
+    Route::get('/discharge/{id?}', [PatientController::class,'discharge']);
     
     // discharge all routes////////////////
     Route::get('/discharge', function () {
         return view('/discharge');
     });
+
+    Route::post('/get_data', [AutoComplete::class, 'get']);
+    Route::post('/get_med', [AutoComplete::class, 'getmed']);
+
     
     // userrole all routes////////////////
     Route::get('/userrole', function () {
-        return view('userrole');
+        return view('/userrole');
     });
     // Route::post('/userrole', [UserController::class, 'store'])->name('userrole.store');
     
-    // Route::get('/dischargeslip', function () {
-    //     return view('dischargeslip');
-    // });
+    Route::get('/dischargeslip', function () {
+        return view('dischargeslip');
+    });
     Route::get('dischargeslip',[DischargeController::class, 'index']);
     
     Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);
