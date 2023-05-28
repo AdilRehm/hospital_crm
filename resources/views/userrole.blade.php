@@ -1,6 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.bodycontent')
-@extends('layouts.header')
 @section('title', 'Add User')
 @section('content')
 <div class="container">

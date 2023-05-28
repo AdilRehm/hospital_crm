@@ -1,6 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.bodycontent')
-@extends('layouts.header')
 @section('title', isset($medicine) ? 'Update Medicine' : 'Add New Medicine')
 
 @section('content')

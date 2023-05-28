@@ -1,6 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.bodycontent')
-@extends('layouts.header')
 
 @section('title', 'DischargeSlip')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
