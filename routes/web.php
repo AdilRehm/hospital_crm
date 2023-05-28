@@ -30,9 +30,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 
-Route::get('/logout', 'App\Http\Controllers\HomeController@logout');
+// Route::get('/logout', 'App\Http\Controllers\HomeController@logout');
 
-Route::middleware(['auth'])->group(function () {
+// Route::middleware(['auth'])->group(function () {
     // Route::get('/',function(){
     //     return view('dashboard');
     // });
@@ -95,8 +95,8 @@ Route::middleware(['auth'])->group(function () {
     
     Route::post('/discharge_csutomer', [DischargeDetaile::class,'create']);
 
-});
+// });
 
-Auth::routes();
+// Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

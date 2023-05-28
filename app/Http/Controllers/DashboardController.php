@@ -16,8 +16,8 @@ class DashboardController extends Controller
          $totalmedicine = medicinemodel::all()->count();
          $totaldischarge=DischargeDetailModel::all()->count();
          $totaluser=User::all()->count();
-         $user = auth()->user();
-         $role = explode(" ",$user->userrole);
+        //  $user = auth()->user();
+        //  $role = explode(" ",$user->userrole);
          
-         return view('dashboard', ['totalUsers' => $totalUsers, 'totalmedicine'=> $totalmedicine, 'totaldischarge'=> $totaldischarge, 'totaluser'=> $totaluser, 'role' => $role],);    }
+         return view('dashboard', ['totalUsers' => $totalUsers, 'totalmedicine'=> $totalmedicine, 'totaldischarge'=> $totaldischarge, 'totaluser'=> $totaluser],);    }
 }
